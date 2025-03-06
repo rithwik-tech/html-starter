@@ -1,14 +1,29 @@
-import { next } from '@vercel/edge';
+// Dynamic Greeting Based on Time of Day
+function updateGreeting() {
+    let greetingText = document.getElementById("greeting");
+    let hours = new Date().getHours();
+    let greeting;
 
-export default function middleware(req) {
-  return next({
-    headers: {
-      'Referrer-Policy': 'origin-when-cross-origin',
-      'X-Frame-Options': 'DENY',
-      'X-Content-Type-Options': 'nosniff',
-      'X-DNS-Prefetch-Control': 'on',
-      'Strict-Transport-Security':
-        'max-age=31536000; includeSubDomains; preload',
-    },
-  });
+    if (hours < 12) {
+        greeting = "Good Morning!";
+    } else if (hours < 18) {
+        greeting = "Good Afternoon!";
+    } else {
+        greeting = "Good Evening!";
+    }
+
+    greetingText.innerText = greeting + " Welcome to my portfolio!";
 }
+
+// Dark Mode Toggle
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+}
+
+// Resume Download Function
+function downloadResume() {
+    window.open("Resume-Sai.pdf", "_blank");
+}
+
+// Call greeting function on page load
+document.addEventListener("DOMContentLoaded", updateGreeting);
